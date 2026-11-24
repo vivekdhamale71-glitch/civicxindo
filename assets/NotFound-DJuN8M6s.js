@@ -1,0 +1,1 @@
+import{b as s,aq as a,j as o,B as e}from"./index-CfdEZS8v.js";import{E as i}from"./EmptyState-DBaBH9Jh.js";function f(){const{t}=s(),n=a();return o.jsx(i,{title:t("nf.title"),body:t("nf.body"),action:o.jsx(e,{onClick:()=>n("/"),children:t("nf.home")})})}export{f as default};

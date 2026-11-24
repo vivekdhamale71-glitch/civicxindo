@@ -1,0 +1,1 @@
+import{bw as e,bx as s}from"./index-CfdEZS8v.js";const r=(t,a)=>`${t}:${a}`,o=(t,a)=>e(async()=>await s.drafts.get(r(t,a))??null),f=t=>s.drafts.put({...t,updatedAt:new Date().toISOString()}),n=(t,a)=>s.drafts.delete(r(t,a)),l=t=>e(()=>s.drafts.where("citizenId").equals(t).toArray());export{n as d,o as g,l,f as s};

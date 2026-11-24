@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#1B2A4A" />
+    <meta name="description" content="civicXindo – National Welfare Schemes Portal. Check eligibility, apply for schemes and track applications. Demo prototype – not an official government website." />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="civicXindo" />
+    <link rel="icon" type="image/svg+xml" href="/civicxindo/favicon.svg" />
+    <link rel="apple-touch-icon" href="/civicxindo/icons/apple-touch-icon.png" />
+    <title>civicXindo – National Welfare Schemes Portal</title>
+    <script>
+      // Apply persisted appearance before first paint (prevents flash and layout shift).
+      try {
+        var s = JSON.parse(localStorage.getItem("cx-settings") || "{}").state || {};
+        var d = document.documentElement;
+        if (s.theme === "dark") d.classList.add("dark");
+        if (s.contrast === "high") d.setAttribute("data-contrast", "high");
+        if (s.lang === "hi") d.lang = "hi";
+        d.style.fontSize = ({ sm: "93.75%", md: "100%", lg: "112.5%", xl: "125%" })[s.textSize || "md"];
+      } catch (e) {}
+    </script>
+    <style>
+      /* Static splash: paints before any JavaScript. Spokes draw in, the wheel turns once, the tricolour sweeps. */
+      #splash{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#FAF8F5;color:#1B2A4A;font-family:"Noto Sans",system-ui,sans-serif;transition:opacity .3s cubic-bezier(.22,1,.36,1)}
+      .dark #splash{background:#0E1626;color:#E8ECF4}
+      #splash.out{opacity:0;pointer-events:none}
+      #splash .w{width:96px;height:96px;animation:sp-turn 1s cubic-bezier(.22,1,.36,1) .45s both}
+      #splash line,#splash .rim{stroke-dasharray:1;stroke-dashoffset:1;animation:sp-draw .3s cubic-bezier(.22,1,.36,1) forwards}
+      #splash .rim{animation-duration:.6s}
+      #splash p{margin:24px 0 0;font-size:24px;font-weight:700;letter-spacing:-.02em;animation:sp-fade .4s cubic-bezier(.22,1,.36,1) .3s both}
+      #splash p b{color:#E07B12}
+      #splash .t{margin-top:16px;width:160px;height:3px;border-radius:3px;background:linear-gradient(90deg,#F93 0 33%,#fff 33% 66%,#138808 66%);box-shadow:0 0 0 1px rgba(27,42,74,.06);transform-origin:left;animation:sp-sweep .55s cubic-bezier(.22,1,.36,1) .5s both}
+      @keyframes sp-draw{to{stroke-dashoffset:0}}
+      @keyframes sp-turn{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+      @keyframes sp-fade{from{opacity:0;transform:translateY(6px)}}
+      @keyframes sp-sweep{from{transform:scaleX(0)}}
+      @media (prefers-reduced-motion:reduce){#splash *{animation:none!important;stroke-dashoffset:0!important}}
+    </style>
+    <script type="module" crossorigin src="/civicxindo/assets/index-CfdEZS8v.js"></script>
+    <link rel="stylesheet" crossorigin href="/civicxindo/assets/index-C6NMqMI9.css">
+  <link rel="manifest" href="/civicxindo/manifest.webmanifest"></head>
+  <body>
+    <div id="splash" aria-hidden="true">
+      <svg class="w" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-linecap="round"><circle class="rim" cx="50" cy="50" r="40" stroke-width="2.2" pathLength="1"/><circle cx="50" cy="50" r="8" stroke-width="2"/><g id="sp-spokes" stroke-width="1.4"></g></svg>
+      <p>civic<b>X</b>indo</p>
+      <div class="t"></div>
+    </div>
+    <script>
+      (function () {
+        var el = document.getElementById("splash");
+        try { if (sessionStorage.getItem("cx-splash")) { el.remove(); return; } sessionStorage.setItem("cx-splash", "1"); } catch (e) {}
+        var g = document.getElementById("sp-spokes"), out = "";
+        for (var i = 0; i < 24; i++) {
+          var a = (i * Math.PI * 2) / 24, r2 = i % 2 ? 29.6 : 34.4;
+          out += '<line pathLength="1" style="animation-delay:' + (i * 25) + 'ms" x1="' + (50 + Math.cos(a) * 12) + '" y1="' + (50 + Math.sin(a) * 12) + '" x2="' + (50 + Math.cos(a) * r2) + '" y2="' + (50 + Math.sin(a) * r2) + '"/>';
+        }
+        g.innerHTML = out;
+        window.__splashStart = performance.now();
+      })();
+    </script>
+    <div id="root"></div>
+    <script>
+      // The prerendered landing page only matches a fresh, English, signed-out visit to "/". Otherwise render on the client.
+      (function () {
+        try {
+          var st = JSON.parse(localStorage.getItem("cx-settings") || "{}").state || {};
+          var se = JSON.parse(localStorage.getItem("cx-session") || "{}").state || {};
+          var base = "/civicxindo/";
+          if (location.pathname !== base || st.lang === "hi" || se.citizenId) document.getElementById("root").innerHTML = "";
+        } catch (e) { document.getElementById("root").innerHTML = ""; }
+      })();
+    </script>
+    <noscript>civicXindo requires JavaScript to run.</noscript>
+  </body>
+</html>
