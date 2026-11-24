@@ -2,6 +2,8 @@
 
 A Progressive Web App that covers a welfare scheme from start to finish: ministries publish schemes, citizens check eligibility, apply, store documents and track applications, and officials verify, sanction and pay. Every step is logged, budgets are shown as they are spent, and likely fraud is flagged before money is released.
 
+**Live demo:** https://vivekdhamale71-glitch.github.io/civicxindo/ (open it on a phone and tap **Download app** to install).
+
 > **Demo prototype – not an official government website.** All scheme names, departments, people and data are fictional. The app does not use the State Emblem, the national flag or any real ministry or portal logo. The civicXindo mark (a double ring with 24 thin spokes of alternating length and an open hub) is original artwork.
 
 ## Quick start
@@ -25,7 +27,7 @@ npm run deploy        # builds with BASE_PATH=/civicxindo/ and pushes dist/ to t
 gh api -X POST repos/<user>/civicxindo/pages -f "source[branch]=gh-pages" -f "source[path]=/"   # once
 ```
 
-`npm run deploy` can be re-run any time to publish a new version. Installed copies show "A new version is available" and update when the user taps **Refresh**. Deep links work through `404.html`, and after the first visit the service worker serves them.
+`npm run deploy` can be re-run any time to publish a new version. Installed copies show "A new version is available" and update when the user taps **Refresh**. Deep links work through `404.html`. GitHub Pages sends that page with a 404 status, so a first-ever direct visit to a sub-page logs one console 404 while still rendering correctly. After that, the service worker serves every route itself.
 
 Run the end-to-end check against any running build with `npm run test:e2e -- http://localhost:4173` (or the live URL).
 
