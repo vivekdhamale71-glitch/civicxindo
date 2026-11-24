@@ -74,20 +74,21 @@ export default function Home() {
 
       {/* Live stats */}
       <section aria-label={t("home.stats")}>
-        <div className="grid gap-4 sm:grid-cols-3">
+        <div className="grid grid-cols-3 gap-2 sm:gap-4">
           {[
             { icon: FileText, label: t("home.stat_schemes"), value: stats.data?.schemes, fmt: groupIN },
             { icon: ListChecks, label: t("home.stat_beneficiaries"), value: stats.data?.beneficiaries, fmt: groupIN },
             { icon: ChartColumn, label: t("home.stat_disbursed"), value: stats.data?.disbursed, fmt: (n: number) => compactINR(n, lang) },
           ].map((s, i) => (
             <Reveal key={s.label} i={i}>
-              <Card className="flex items-center gap-4 p-4 md:p-6">
-                <IconTint size={48}><s.icon className="size-5" aria-hidden /></IconTint>
+              <Card className="flex h-full flex-col gap-2 p-3 sm:flex-row sm:items-center sm:gap-4 sm:p-4 md:p-6">
+                <IconTint size={48} className="hidden sm:inline-flex"><s.icon className="size-5" aria-hidden /></IconTint>
+                <s.icon className="size-4 text-muted sm:hidden" aria-hidden />
                 <div className="min-w-0">
-                  <p className="whitespace-nowrap text-2xl font-bold tracking-[-0.01em] text-ink lg:text-[26px]">
-                    {s.value === undefined ? <span className="skeleton inline-block h-7 w-28 align-middle" /> : <AnimatedNumber value={s.value} format={s.fmt} />}
+                  <p className="text-[17px] font-bold leading-tight tracking-[-0.01em] text-ink sm:whitespace-nowrap sm:text-2xl lg:text-[26px]">
+                    {s.value === undefined ? <span className="skeleton inline-block h-5 w-16 align-middle sm:h-7 sm:w-28" /> : <AnimatedNumber value={s.value} format={s.fmt} />}
                   </p>
-                  <p className="text-sm text-muted">{s.label}</p>
+                  <p className="mt-0.5 text-xs leading-snug text-muted sm:text-sm">{s.label}</p>
                 </div>
               </Card>
             </Reveal>

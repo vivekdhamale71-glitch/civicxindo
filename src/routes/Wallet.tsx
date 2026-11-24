@@ -75,11 +75,11 @@ function Inner() {
               const exp = expiryState(d);
               return (
                 <m.li key={d.id} layout variants={fadeUp} initial="hidden" animate="show" exit={{ opacity: 0, scale: 0.96 }} custom={i} transition={spring.smooth}>
-                  <Card className="overflow-hidden">
-                    <button onClick={() => setView(d)} className="block w-full" aria-label={t("wallet.view", { name: d.name })}>
-                      <DocThumb doc={d} className="aspect-[16/10] w-full rounded-none" />
+                  <Card className="flex overflow-hidden sm:block">
+                    <button onClick={() => setView(d)} className="block w-28 shrink-0 self-stretch sm:w-full" aria-label={t("wallet.view", { name: d.name })}>
+                      <DocThumb doc={d} className="h-full w-full rounded-none sm:aspect-[16/10] sm:h-auto" />
                     </button>
-                    <div className="p-4">
+                    <div className="min-w-0 flex-1 p-3 sm:p-4">
                       <div className="flex items-start justify-between gap-2">
                         <p className="font-semibold text-ink">{L(DOC_TYPES[d.type].label)}</p>
                         {exp === "expired" ? <Badge tone="rejected">{t("wallet.expired")}</Badge> : exp === "soon" ? <Badge tone="review">{t("wallet.expiring")}</Badge> : exp === "valid" ? <Badge tone="approved">{t("wallet.valid")}</Badge> : null}

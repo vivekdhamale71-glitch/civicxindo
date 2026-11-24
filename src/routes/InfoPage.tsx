@@ -7,6 +7,7 @@ import { EmptyState } from "@/components/EmptyState";
 import { Reveal } from "@/components/Reveal";
 import type { L10n } from "@/lib/types";
 import { formatDate } from "@/lib/utils";
+import { SCHEME_IMAGES } from "@/components/brand/SchemePhoto";
 
 type Block = { h?: L10n; p?: L10n; list?: L10n[] };
 const l = (en: string, hi: string): L10n => ({ en, hi });
@@ -95,6 +96,22 @@ export default function InfoPage() {
         </div>
         <h2>{t("sr.shortcuts")}</h2>
         <ul><li>{t("sr.k1")}</li><li>{t("sr.k2")}</li><li>{t("sr.k3")}</li></ul>
+      </div>
+    );
+  } else if (key === "image-credits") {
+    body = (
+      <div className="prose-gov">
+        <p>{t("credits.intro")}</p>
+        <ul className="!list-none !pl-0">
+          {Object.entries(SCHEME_IMAGES).map(([id, m]) => (
+            <li key={id} className="border-b border-line/[0.08] py-3 text-sm">
+              <a href={m.source} target="_blank" rel="noopener noreferrer" className="font-semibold text-info underline">{m.title}<span className="sr-only"> ({t("sr.external")})</span></a>
+              <br />
+              {t("credits.by")} {m.artist} · {m.licenseUrl ? <a href={m.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline">{m.license}</a> : m.license}
+              <span className="text-muted"> · {t("credits.cropped")}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     );
   } else if (PAGES[key]) {

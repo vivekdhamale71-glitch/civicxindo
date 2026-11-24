@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { EmptyState } from "@/components/EmptyState";
 import { SchemeBody } from "@/features/schemes/SchemeBody";
-import { Illustration } from "@/components/brand/Illustration";
+import { SchemePhoto } from "@/components/brand/SchemePhoto";
 import { CATEGORIES, DOC_TYPES, GENDERS, OCCUPATIONS, RULE_FIELDS, RULE_OPS, SOCIAL_CATEGORIES, STATES } from "@/lib/reference";
 import { describeRule } from "@/lib/eligibility";
 import { spring, ease } from "@/lib/motion";
@@ -140,7 +140,7 @@ export default function SchemeBuilder() {
                 <Field label={t("author.category")} htmlFor="b-cat"><Select id="b-cat" value={s.category} onChange={(e) => set("category", e.target.value as Category)}>{(Object.keys(CATEGORIES) as Category[]).map((c) => <option key={c} value={c}>{L(CATEGORIES[c])}</option>)}</Select></Field>
                 <Field label={t("author.level")} htmlFor="b-level"><Select id="b-level" value={s.level} onChange={(e) => set("level", e.target.value as Scheme["level"])}><option value="central">{t("scheme.central")}</option><option value="state">{t("scheme.state")}</option></Select></Field>
                 {s.level === "state" && <Field label={t("apply.state")} htmlFor="b-state" error={errors.state} required><Select id="b-state" value={s.state ?? ""} onChange={(e) => set("state", e.target.value)}><option value="">{t("common.select")}</option>{STATES.map((x) => <option key={x.name} value={x.name}>{lang === "hi" ? x.hi : x.name}</option>)}</Select></Field>}
-                <div className="overflow-hidden rounded-card border border-line/[0.08] sm:col-span-2"><Illustration category={s.category} className="aspect-[16/5] w-full" /></div>
+                <div className="aspect-[16/5] overflow-hidden rounded-card border border-line/[0.08] sm:col-span-2"><SchemePhoto schemeId={s.id} category={s.category} /></div>
               </Card>
             )}
 
@@ -246,7 +246,7 @@ export default function SchemeBuilder() {
               <div className="mb-4 flex items-center gap-2 rounded-input bg-info/10 p-3 text-sm text-ink"><Eye className="size-4 text-info" aria-hidden />{t("author.preview_note")}</div>
               <div className="pointer-events-none rounded-sheet border-2 border-dashed border-line/[0.15] p-3 md:p-6">
                 <Card className="mb-6 overflow-hidden">
-                  <Illustration category={s.category} className="aspect-[16/5] w-full" />
+                  <div className="aspect-[16/5] w-full"><SchemePhoto schemeId={s.id} category={s.category} /></div>
                   <div className="p-6"><h2 className="t-scale text-[28px] font-semibold">{L(s.name) || t("author.untitled")}</h2><p className="mt-1 text-body">{L(s.tagline)}</p></div>
                 </Card>
                 <SchemeBody s={{ ...s, benefitLabel: s.benefitLabel.en ? s.benefitLabel : { en: compactINR(s.benefitAmount), hi: compactINR(s.benefitAmount, "hi") } }} delay={0} />

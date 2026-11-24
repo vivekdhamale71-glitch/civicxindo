@@ -9,7 +9,7 @@ import { getDraft } from "@/api/drafts";
 import { useT } from "@/i18n";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Button } from "@/components/ui/button";
-import { Illustration } from "@/components/brand/Illustration";
+import { SchemePhoto } from "@/components/brand/SchemePhoto";
 import { LevelBadge, ClosingBadge } from "@/features/schemes/SchemeCard";
 import { SchemeBody } from "@/features/schemes/SchemeBody";
 import { EmptyState } from "@/components/EmptyState";
@@ -63,7 +63,7 @@ export default function SchemeDetail() {
       <Breadcrumbs items={[{ label: t("nav.schemes"), to: "/schemes" }, { label: L(s.name) }]} />
       <header className="card mb-6 overflow-hidden">
         <m.div layoutId={`scheme-art-${s.id}`} transition={spring.smooth} className="relative aspect-[16/7] w-full overflow-hidden bg-ink/[0.03] md:aspect-[16/5]">
-          <Illustration category={s.category} className="absolute inset-0 h-full w-full" />
+          <SchemePhoto schemeId={s.id} category={s.category} eager />
         </m.div>
         <div className="p-6">
           <div className="mb-3 flex flex-wrap items-center gap-2">

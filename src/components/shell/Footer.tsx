@@ -6,7 +6,7 @@ import { visitorCount } from "@/api/admin";
 import { formatDate, groupIN } from "@/lib/utils";
 import { Wheel } from "../brand/Wheel";
 
-export const FOOTER_PAGES = ["about", "help", "contact", "feedback", "sitemap", "terms", "privacy", "copyright", "hyperlinking", "accessibility", "disclaimer"] as const;
+export const FOOTER_PAGES = ["about", "help", "contact", "feedback", "sitemap", "terms", "privacy", "copyright", "hyperlinking", "accessibility", "disclaimer", "image-credits"] as const;
 
 export function Footer() {
   const { t, lang } = useT();

@@ -26,10 +26,12 @@ export function TabBar() {
                 aria-current={active ? "page" : undefined}
                 className={cn("relative flex flex-1 flex-col items-center justify-center gap-0.5 text-[11px] font-semibold", active ? "text-ink" : "text-muted")}
               >
-                {active && <m.span layoutId="tab-pill" className="absolute inset-x-2 inset-y-1.5 rounded-full bg-ink/[0.08]" transition={spring.snappy} />}
-                <m.span className="relative" animate={{ scale: active ? 1.1 : 1 }} transition={spring.snappy}>
-                  <Icon className="size-[22px]" strokeWidth={active ? 2.2 : 1.8} aria-hidden />
-                </m.span>
+                <span className="relative flex h-8 w-14 items-center justify-center">
+                  {active && <m.span layoutId="tab-pill" className="absolute inset-0 rounded-full bg-ink/[0.1]" transition={spring.snappy} />}
+                  <m.span className="relative" animate={{ scale: active ? 1.1 : 1 }} transition={spring.snappy}>
+                    <Icon className="size-[22px]" strokeWidth={active ? 2.2 : 1.8} aria-hidden />
+                  </m.span>
+                </span>
                 <span className="relative t-scale">{t(tab.label)}</span>
               </PLink>
             </li>

@@ -2,7 +2,7 @@ import { m } from "motion/react";
 import { CalendarClock, ArrowRight } from "lucide-react";
 import type { Scheme } from "@/lib/types";
 import { PLink } from "@/components/PLink";
-import { Illustration } from "@/components/brand/Illustration";
+import { SchemePhoto } from "@/components/brand/SchemePhoto";
 import { Badge } from "@/components/ui/misc";
 import { useT } from "@/i18n";
 import { CATEGORIES, stateLabel } from "@/lib/reference";
@@ -36,8 +36,8 @@ export function SchemeCard({ s, i = 0, reasons }: { s: Scheme; i?: number; reaso
         {/* Pre-rendered hover shadow; only its opacity animates. */}
         <span aria-hidden className="absolute inset-0 rounded-card opacity-0 shadow-lift transition-opacity duration-300 group-hover:opacity-100" />
         <PLink to={`/schemes/${s.id}`} className="card relative flex h-full flex-col overflow-hidden focus-visible:ring-4 focus-visible:ring-focus/30">
-          <m.div layoutId={`scheme-art-${s.id}`} transition={spring.smooth} className="relative aspect-[16/9] w-full overflow-hidden bg-ink/[0.03]">
-            <Illustration category={s.category} className="absolute inset-0 h-full w-full" />
+          <m.div layoutId={`scheme-art-${s.id}`} transition={spring.smooth} className="relative aspect-[2/1] w-full overflow-hidden bg-ink/[0.03] sm:aspect-[16/9]">
+            <SchemePhoto schemeId={s.id} category={s.category} />
           </m.div>
           <div className="flex flex-1 flex-col p-4">
             <div className="mb-2 flex flex-wrap items-center gap-2">
@@ -70,7 +70,7 @@ export function SchemeCard({ s, i = 0, reasons }: { s: Scheme; i?: number; reaso
 export function SchemeCardSkeleton() {
   return (
     <div className="card overflow-hidden">
-      <div className="skeleton aspect-[16/9] w-full rounded-none" />
+      <div className="skeleton aspect-[2/1] w-full rounded-none sm:aspect-[16/9]" />
       <div className="p-4">
         <div className="skeleton mb-3 h-5 w-24 rounded-full" />
         <div className="skeleton mb-2 h-5 w-3/4" />

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
-import { LogIn, LogOut, Download, Trash2, RotateCcw, Bell, Languages, UserRound, Smartphone } from "lucide-react";
+import { LogIn, LogOut, Download, Trash2, RotateCcw, Bell, Languages, UserRound, Smartphone, Building2, ArrowRight } from "lucide-react";
+import { Wheel } from "@/components/brand/Wheel";
 import { toast } from "sonner";
 import { useSession } from "@/store/session";
 import { useSettings } from "@/store/settings";
@@ -78,29 +79,56 @@ export default function Profile() {
       <PageHeader title={t("profile.title")} crumbs={[{ label: t("profile.title") }]} />
 
       {id && citizen ? (
-        <Card className="flex flex-wrap items-center gap-4 p-6">
-          <span className="flex size-16 items-center justify-center rounded-full bg-ink/[0.08] text-xl font-bold text-ink">{citizen.name ? initials(citizen.name) : <UserRound aria-hidden />}</span>
-          <div className="min-w-0 flex-1">
-            <p className="text-xl font-semibold text-ink">{(lang === "hi" && citizen.nameHi) || citizen.name || t("profile.unnamed")}</p>
-            <p className="num text-sm text-muted">+91 {citizen.mobile}</p>
+        <Card className="overflow-hidden">
+          <div aria-hidden className="relative h-20 bg-navy dark:bg-[#1E2C4D]">
+            <div className="absolute -right-6 -top-10 text-white/10"><Wheel size={150} strokeWidth={1} /></div>
+            <div className="tricolour absolute inset-x-0 bottom-0" />
+          </div>
+          <div className="px-6 pb-6">
+            <span className="relative z-10 -mt-9 flex size-[72px] items-center justify-center rounded-full border-4 border-card bg-raised text-2xl font-bold text-ink shadow-card">
+              {citizen.name ? initials(citizen.name) : <UserRound className="size-7" aria-hidden />}
+            </span>
+            <div className="mt-3 flex flex-wrap items-start justify-between gap-3">
+              <div className="min-w-0">
+                <p className="t-scale text-xl font-semibold text-ink">{(lang === "hi" && citizen.nameHi) || citizen.name || t("profile.unnamed")}</p>
+                <p className="num text-sm text-muted">+91 {citizen.mobile}</p>
+              </div>
+              <Button variant="secondary" size="sm" onClick={() => { logout(); toast.success(t("profile.signed_out")); nav("/"); }}><LogOut aria-hidden />{t("profile.sign_out")}</Button>
+            </div>
             {citizen.name && (
-              <p className="mt-1 text-sm text-body">
-                {t("profile.age", { n: ageFromDob(citizen.dob) })} · {L(OCCUPATIONS[citizen.occupation])} · {citizen.district}, {stateLabel(citizen.state, lang)}
-              </p>
+              <ul className="mt-4 flex flex-wrap gap-2 text-sm">
+                <li className="rounded-full bg-ink/[0.06] px-3 py-1 text-ink">{t("profile.age", { n: ageFromDob(citizen.dob) })}</li>
+                <li className="rounded-full bg-ink/[0.06] px-3 py-1 text-ink">{L(OCCUPATIONS[citizen.occupation])}</li>
+                <li className="rounded-full bg-ink/[0.06] px-3 py-1 text-ink">{citizen.district}, {stateLabel(citizen.state, lang)}</li>
+              </ul>
             )}
           </div>
-          <Button variant="secondary" onClick={() => { logout(); toast.success(t("profile.signed_out")); nav("/"); }}><LogOut aria-hidden />{t("profile.sign_out")}</Button>
         </Card>
       ) : (
-        <Card className="flex flex-wrap items-center gap-4 p-6">
-          <IconTint size={56}><UserRound className="size-6" aria-hidden /></IconTint>
-          <div className="min-w-0 flex-1">
-            <p className="text-lg font-semibold text-ink">{t("profile.guest")}</p>
-            <p className="text-sm text-body">{t("profile.guest_sub")}</p>
+        <Card className="overflow-hidden">
+          <div aria-hidden className="relative h-20 bg-navy dark:bg-[#1E2C4D]">
+            <div className="absolute -right-6 -top-10 text-white/10"><Wheel size={150} strokeWidth={1} /></div>
+            <div className="tricolour absolute inset-x-0 bottom-0" />
           </div>
-          <Button onClick={() => nav("/login?next=/me")}><LogIn aria-hidden />{t("header.sign_in")}</Button>
+          <div className="px-6 pb-6">
+            <span className="relative z-10 -mt-9 flex size-[72px] items-center justify-center rounded-full border-4 border-card bg-raised text-ink shadow-card">
+              <UserRound className="size-8" aria-hidden />
+            </span>
+            <p className="t-scale mt-3 text-xl font-semibold text-ink">{t("profile.guest")}</p>
+            <p className="mt-1 max-w-[48ch] text-body">{t("profile.guest_sub")}</p>
+            <Button size="lg" className="mt-5 w-full sm:w-auto" onClick={() => nav("/login?next=/me")}><LogIn aria-hidden />{t("header.sign_in")}</Button>
+          </div>
         </Card>
       )}
+
+      <Card className="flex flex-col gap-4 p-5 sm:flex-row sm:items-center">
+        <IconTint size={48}><Building2 className="size-5" aria-hidden /></IconTint>
+        <div className="min-w-0 flex-1">
+          <p className="font-semibold text-ink">{t("profile.officials_title")}</p>
+          <p className="text-sm text-body">{t("profile.officials_sub")}</p>
+        </div>
+        <Button variant="secondary" className="w-full sm:w-auto" onClick={() => nav("/gov/login")}>{t("nav.officials")} <ArrowRight aria-hidden /></Button>
+      </Card>
 
       <Card as="section" className="p-6" aria-labelledby="set-lang">
         <h2 id="set-lang" className="mb-4 flex items-center gap-2 text-lg font-semibold"><Languages className="size-5" aria-hidden />{t("settings.language")}</h2>
@@ -152,13 +180,13 @@ export default function Profile() {
 
 function Row({ icon, title, body, children }: { icon: React.ReactNode; title: string; body: string; children: React.ReactNode }) {
   return (
-    <div className="flex items-center gap-4 py-4 first:pt-0 last:pb-0">
-      <span className="icon-tint size-10">{icon}</span>
+    <div className="flex items-center gap-3 py-4 first:pt-0 last:pb-0 sm:gap-4">
+      <span className="icon-tint size-10 shrink-0">{icon}</span>
       <div className="min-w-0 flex-1">
-        <p className="font-semibold text-ink">{title}</p>
-        <p className="text-sm text-muted">{body}</p>
+        <p className="text-[15px] font-semibold leading-snug text-ink">{title}</p>
+        <p className="mt-0.5 text-[13px] leading-snug text-muted">{body}</p>
       </div>
-      {children}
+      <div className="shrink-0">{children}</div>
     </div>
   );
 }

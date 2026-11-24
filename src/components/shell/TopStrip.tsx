@@ -16,9 +16,11 @@ export function TopStrip() {
   return (
     <div className="bg-navy pt-safe text-white dark:bg-[#0A101D]">
       <div className="container-x flex h-9 items-center justify-between gap-2 text-[12px]">
-        <p className="truncate font-medium">
-          Government of India <span className="mx-1 opacity-50">|</span> <span lang="hi">भारत सरकार</span>
-          <span className="ml-2 rounded bg-saffron px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-navy">{t("strip.demo")}</span>
+        <p className="flex min-w-0 items-center gap-2 font-medium">
+          <span className="truncate">
+            Government of India<span className="hidden min-[420px]:inline"> <span className="mx-1 opacity-50">|</span> <span lang="hi">भारत सरकार</span></span>
+          </span>
+          <span className="shrink-0 rounded bg-saffron px-1.5 py-px text-[10px] font-bold uppercase leading-4 tracking-wider text-navy">{t("strip.demo")}</span>
         </p>
         <div className="flex items-center gap-0.5">
           <a href="#main" className={cn(btn, "hidden lg:flex")}>{t("strip.skip")}</a>

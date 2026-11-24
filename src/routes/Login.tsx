@@ -10,6 +10,7 @@ import { PageHeader } from "@/components/Breadcrumbs";
 import { Button } from "@/components/ui/button";
 import { Field, Input } from "@/components/ui/misc";
 import { spring, ease } from "@/lib/motion";
+import { PLink } from "@/components/PLink";
 import { haptic, initials } from "@/lib/utils";
 import { stateLabel } from "@/lib/reference";
 
@@ -162,6 +163,9 @@ export default function Login() {
           ))}
         </div>
       </section>
+      <p className="mt-6 text-center text-sm text-body">
+        {t("login.official_q")} <PLink to="/gov/login" className="font-semibold text-info hover:underline">{t("nav.officials")}</PLink>
+      </p>
     </div>
   );
 }

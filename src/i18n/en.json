@@ -748,5 +748,12 @@
  "install.get_title": "Get the civicXindo app",
  "install.get_sub": "Install it on your phone or computer in one tap. It opens like a native app and works without internet. No app store needed.",
  "install.installed": "App installed on this device",
- "strip.demo": "Demo"
+ "strip.demo": "Demo",
+ "page.image-credits.title": "Image credits",
+ "credits.intro": "Scheme photographs are from Wikimedia Commons and are used under free licences. They illustrate the kind of people and places each scheme serves; they do not show actual beneficiaries.",
+ "credits.by": "Photo by",
+ "credits.cropped": "resized and cropped",
+ "profile.officials_title": "Are you a government official?",
+ "profile.officials_sub": "District officers, scheme authors, approvers, sanctioning authorities and portal managers sign in here.",
+ "login.official_q": "Government official?"
 }
