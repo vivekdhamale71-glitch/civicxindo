@@ -15,6 +15,20 @@ npm run preview      # serves dist/ at http://localhost:4173 (use this to test i
 
 Requires Node 18 or later.
 
+## Deploying to GitHub Pages
+
+The app works from a sub-path, so GitHub Pages (`https://<user>.github.io/<repo>/`) works out of the box:
+
+```bash
+gh repo create civicxindo --public --source=. --remote=origin --push   # once
+npm run deploy        # builds with BASE_PATH=/civicxindo/ and pushes dist/ to the gh-pages branch
+gh api -X POST repos/<user>/civicxindo/pages -f "source[branch]=gh-pages" -f "source[path]=/"   # once
+```
+
+`npm run deploy` can be re-run any time to publish a new version. Installed copies show "A new version is available" and update when the user taps **Refresh**. Deep links work through `404.html`, and after the first visit the service worker serves them.
+
+Run the end-to-end check against any running build with `npm run test:e2e -- http://localhost:4173` (or the live URL).
+
 ## Demo logins
 
 **Citizens** (`/login`): tap a demo profile, then enter **any 6-digit OTP**. Any other valid mobile number creates a new profile, which you complete while applying.
